@@ -18,7 +18,6 @@ import seaborn as sns
 sns.set(color_codes=True)
 
 fileIn = sys.argv[1]
-#fileIn = "../fastaFiles/Amplicon.RS3.merged.fasta"
 targetName = fileIn.split("/")[-1]
 targetName = targetName.split(".")[1]
 
@@ -34,6 +33,10 @@ plt.title("%s: %i Sequences\nLengths: %i to %i; Median: %i" \
             % (targetName,len(sizes),min(sizes),max(sizes), np.median(sizes)))
 plt.xlabel("Sequence length (bp)")
 plt.ylabel("Count")
+plt.axvline(np.median(sizes), color='k', linestyle='-'); # median
+plt.axvline(np.mean(sizes), color='r', linestyle='-'); #
+plt.axvline((np.mean(sizes) - np.std(sizes)), color='r', linestyle='--'); #
+plt.axvline( (np.mean(sizes) - (2*np.std(sizes))), color='r', linestyle='-.'); #
 #plt.show()
 figSizes.savefig("%s.pdf" % (targetName), bbox_inches='tight')
 plt.close()
